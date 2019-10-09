@@ -1,0 +1,208 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Inputs Validation start -->
+    <app-card [title]="'Add new Prize'" [headerContent]="'Enter Prize info'" [cardOptionBlock]="true">
+      <form [formGroup]="myForm" (ngSubmit)="submit">
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="title" placeholder="Title" formControlName="title" required [(ngModel)]="data.title">
+            <div class="messages text-danger" *ngIf="!myForm.controls.title.valid  && (myForm.controls.title.dirty || isSubmitting)">Title can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Prize Image</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input class="form-control" placeholder="Prize Image" name="prize_image" formControlName="prize_image" required [(ngModel)]="data.prize_image">
+              <div class="input-group-addon bg-default pointer" (click)="chooseImage()" >
+                <span class="icon-image"></span>
+              </div>
+            </div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.prize_image.valid  && (myForm.controls.prize_image.dirty || isSubmitting)">Prize Image can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Select Prize Type</label>
+          <div class="col-sm-10">
+            <select class="form-control" placeholder="Select Prize Type" name="prize_type"  formControlName="prize_type"  [(ngModel)]="data.prize_type" required>
+              <option value="meal">Meal</option>
+              <option value="multiplier">Multiplier</option>
+              <option value="merchandise">Merchandise</option>
+            </select>
+            <div class="messages text-danger error" *ngIf="!myForm.controls.prize_type.valid  && (myForm.controls.prize_type.dirty || isSubmitting)">Prize Type can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Total Quantity</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" name="total_quantity" placeholder="Total Quantity" formControlName="total_quantity" [(ngModel)]="data.total_quantity" required>
+            <div class="messages text-danger" *ngIf="!myForm.controls.total_quantity.valid  && (myForm.controls.total_quantity.dirty || isSubmitting)">Total Quantity can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Total Points</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" name="total_points" placeholder="Total Points" formControlName="total_points" [(ngModel)]="data.total_points" required>
+            <div class="messages text-danger" *ngIf="!myForm.controls.total_points.valid  && (myForm.controls.total_points.dirty || isSubmitting)">Total Points can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Select Region</label>
+          <div class="col-sm-10">
+            <select class="form-control" placeholder="Select Region" name="region"  formControlName="region"  [(ngModel)]="data.region" required>
+              <option value="central">central</option>
+              <option value="northern">northern</option>
+              <option value="eastern">eastern</option>
+              <option value="southern">southern</option>
+            </select>
+            <div class="messages text-danger error" *ngIf="!myForm.controls.region.valid  && (myForm.controls.region.dirty || isSubmitting)">Region can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Limit Per Day</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" name="limit_per_day" placeholder="Limit Per Day" formControlName="limit_per_day" [(ngModel)]="data.limit_per_day" required>
+            <div class="messages text-danger" *ngIf="!myForm.controls.limit_per_day.valid  && (myForm.controls.limit_per_day.dirty || isSubmitting)">Limit Per Day can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Prize Value</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="prize_value" placeholder="Prize Value" formControlName="prize_value" [(ngModel)]="data.prize_value" required>
+            <div class="messages text-danger" *ngIf="!myForm.controls.prize_value.valid  && (myForm.controls.prize_value.dirty || isSubmitting)">Prize Value can't be blank</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="col-sm-2 col-form-label">Prize Status?</label>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="prize_status" value="active" formControlName="prize_status" [(ngModel)]="data.prize_status"> Active
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="prize_status" value="in-active" formControlName="prize_status" [(ngModel)]="data.prize_status"> In-Active
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="prize_status" value="completed" formControlName="prize_status" [(ngModel)]="data.prize_status"> Completed
+              </label>
+            </div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.prize_status.valid  && (myForm.controls.prize_status.dirty || isSubmitting)">Prize Status can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2"></label>
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary m-b-0" [disabled]="!myForm.valid" (click)="confirmAdd()">Save</button>
+            <button class="btn btn-danger m-b-0" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+
+      </form>
+    </app-card>
+
+  </div>
+</div>
+
+
+<!--<div class="container">-->
+  <!--<h3 mat-dialog-title>Add new Prize</h3>-->
+
+  <!--<form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Title" [(ngModel)]="data.title" name="title" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Prize Image" [(ngModel)]="data.prize_image" name="prize_image" disabled />-->
+        <!--<mat-icon matPrefix (click)="chooseImage()" class="pointer ">image</mat-icon>-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Select Prize Type" [(ngModel)]="data.prize_type" name="prize_type" required>-->
+          <!--<mat-option value="meal">Meal</mat-option>-->
+          <!--<mat-option value="multiplier">Multiplier</mat-option>-->
+          <!--<mat-option value="merchandise">Merchandise</mat-option>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Total Quantity" [(ngModel)]="data.total_quantity" name="total_quantity" type="number" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Total Points" [(ngModel)]="data.total_points" name="total_points" type="number" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Select Region" [(ngModel)]="data.region" name="region" required>-->
+          <!--<mat-option value="central">central</mat-option>-->
+          <!--<mat-option value="northern">northern</mat-option>-->
+          <!--<mat-option value="eastern">eastern</mat-option>-->
+          <!--<mat-option value="southern">southern</mat-option>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Limit Per Day" [(ngModel)]="data.limit_per_day" name="limit_per_day" type="number" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Prize Value" [(ngModel)]="data.prize_value" name="prize_value" type="text" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-radio-group placeholder="Prize Status?" [(ngModel)]="data.prize_status" name="prize_status" required >-->
+        <!--<mat-radio-button value="active" selected>active</mat-radio-button>-->
+        <!--<mat-radio-button value="in-active">in-active</mat-radio-button>-->
+        <!--<mat-radio-button value="completed">completed</mat-radio-button>-->
+      <!--</mat-radio-group>-->
+    <!--</div>-->
+
+    <!--<div mat-dialog-actions>-->
+      <!--<button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" (click)="confirmAdd()">Save</button>-->
+      <!--<button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+    <!--</div>-->
+    <!--<p></p>-->
+    <!--<p></p>-->
+  <!--</form>-->
+<!--</div>-->

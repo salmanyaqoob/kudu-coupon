@@ -1,0 +1,124 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Inputs Validation start -->
+    <app-card [title]="'Add new User'" [headerContent]="'Enter User info'" [cardOptionBlock]="true">
+      <form [formGroup]="myForm" (ngSubmit)="submit">
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" placeholder="Name" formControlName="name" required [(ngModel)]="data.name">
+            <div class="messages text-danger" *ngIf="!myForm.controls.name.valid  && (myForm.controls.name.dirty || isSubmitting)">Name can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email" required [(ngModel)]="data.email">
+            <div class="messages text-danger" *ngIf="myForm.controls.email.errors?.required && (myForm.controls.email.dirty || isSubmitting)">Email can't be blank</div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.email.valid  && (myForm.controls.email.dirty || isSubmitting)">Email is not Valid</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="password"  placeholder="Password" formControlName="password" required [(ngModel)]="data.password">
+            <div class="messages text-danger error" *ngIf="!myForm.controls.password.valid  && (myForm.controls.password.dirty || isSubmitting)">Password must be 8 digits</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Mobile Number</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="mobileNumber"  placeholder="Mobile Number" formControlName="mobileNumber" required [(ngModel)]="data.mobileNumber">
+            <div class="messages text-danger error" *ngIf="!myForm.controls.mobileNumber.valid  && (myForm.controls.mobileNumber.dirty || isSubmitting)">Mobile Number can't be blank</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="col-sm-2 col-form-label">Is Active?</label>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="is_active" value="ACTIVE" formControlName="is_active" [(ngModel)]="data.is_active"> Active
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="is_active" value="IN-ACTIVE" formControlName="is_active" [(ngModel)]="data.is_active"> In-Active
+              </label>
+            </div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.is_active.valid  && (myForm.controls.is_active.dirty || isSubmitting)">Is Active can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2"></label>
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary m-b-0" [disabled]="!myForm.valid" (click)="confirmAdd()">Save</button>
+            <button class="btn btn-danger m-b-0" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+
+      </form>
+    </app-card>
+
+  </div>
+</div>
+
+
+
+
+<!--<div class="container">-->
+  <!--<h3 mat-dialog-title>Add new User</h3>-->
+
+  <!--<form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Name" [(ngModel)]="data.name" name="name" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email" type="email" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="password" [(ngModel)]="data.password" name="password" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Mobile Number" [(ngModel)]="data.mobileNumber" name="mobileNumber" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-radio-group placeholder="Is Active?" [(ngModel)]="data.is_active" name="is_active" required >-->
+        <!--<mat-radio-button value="ACTIVE" selected>Active</mat-radio-button>-->
+        <!--<mat-radio-button value="IN-ACTIVE">In-Active</mat-radio-button>-->
+      <!--</mat-radio-group>-->
+    <!--</div>-->
+
+    <!--<div mat-dialog-actions>-->
+      <!--<button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid"  (click)="confirmAdd()">Save</button>-->
+      <!--<button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+    <!--</div>-->
+    <!--<p></p>-->
+    <!--<p></p>-->
+
+  <!--</form>-->
+<!--</div>-->

@@ -1,0 +1,86 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Inputs Validation start -->
+    <app-card [title]="'Add new Coupon QR'" [headerContent]="'Enter Coupon QR info'" [cardOptionBlock]="true">
+      <form [formGroup]="myForm" (ngSubmit)="submit">
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Coupon id</label>
+          <div class="col-sm-10">{{data._id}}</div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Coupon Title</label>
+          <div class="col-sm-10">{{data.title}}</div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Select Coupon QR Quantity</label>
+          <div class="col-sm-10">
+            <select name="total_qr" class="form-control" placeholder="Select Coupon QR Quantity" formControlName="total_qr"  [(ngModel)]="data.total_qr" required>
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="150">150</option>
+              <option value="200">200</option>
+              <option value="300">300</option>
+              <option value="400">400</option>
+              <option value="500">500</option>
+            </select>
+            <div class="messages text-danger error" *ngIf="!myForm.controls.total_qr.valid  && (myForm.controls.total_qr.dirty || isSubmitting)">Coupon QR Quantity can't be blank</div>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-sm-2"></label>
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary m-b-0" [disabled]="!myForm.valid" (click)="confirmAdd()">Generate QR</button>
+            <button class="btn btn-danger m-b-0" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+
+      </form>
+    </app-card>
+
+  </div>
+</div>
+
+<!--<div class="container">-->
+  <!--<h3 mat-dialog-title>Add new Coupon QR</h3>-->
+
+  <!--<form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">-->
+
+    <!--<h3 mat-dialog-title>Coupon id: {{data._id}}</h3>-->
+    <!--<h3 mat-dialog-title>Coupon Title: {{data.title}}</h3>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Select Coupon QR Quantity" [(ngModel)]="data.total_qr" name="total_qr" required>-->
+          <!--<mat-option value="1">1</mat-option>-->
+          <!--<mat-option value="5">5</mat-option>-->
+          <!--<mat-option value="10">10</mat-option>-->
+          <!--<mat-option value="50">50</mat-option>-->
+          <!--<mat-option value="100">100</mat-option>-->
+          <!--<mat-option value="150">150</mat-option>-->
+          <!--<mat-option value="200">200</mat-option>-->
+          <!--<mat-option value="300">300</mat-option>-->
+          <!--<mat-option value="400">400</mat-option>-->
+          <!--<mat-option value="500">500</mat-option>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div mat-dialog-actions>-->
+      <!--<button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" (click)="confirmAdd()">Generate QR</button>-->
+      <!--<button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+    <!--</div>-->
+
+    <!--<p></p>-->
+    <!--<p></p>-->
+  <!--</form>-->
+<!--</div>-->

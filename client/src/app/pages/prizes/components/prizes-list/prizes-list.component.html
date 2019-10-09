@@ -1,0 +1,132 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<mat-toolbar color="default">
+
+  <mat-toolbar-row>
+    <mat-form-field  class="form" floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Filter Prize">
+    </mat-form-field>
+    <span class="example-spacer"></span>
+    <button mat-mini-fab  aria-label="Refresh" color="accent" (click)="refresh()" class="text-left">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<div class="container mat-elevation-z8">
+
+
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row._id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Title</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.title}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="prize_image">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Image</mat-header-cell>
+      <mat-cell *matCellDef="let row"> <img *ngIf="row.prize_image" src="{{site_url+row.prize_image}}" draggable="false" width="60px" height="70px"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="prize_type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.prize_type}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="total_quantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Total Quantity</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.total_quantity}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="total_quantity_consumed">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity Consumed</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.total_quantity_consumed}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="total_points">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Total Points</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.total_points}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="region">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Region</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.region}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="limit_per_day">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Limit/Day</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.limit_per_day}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="prize_value">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Prize Value</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.prize_value}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="prize_status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.prize_status}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CreatedAt</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.createdAt | date}}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="startEdit(i, row._id, row.title, row.prize_image, row.prize_type, row.total_quantity, row.total_quantity_consumed, row.total_points, row.region, row.limit_per_day, row.prize_value, row.prize_status, row.createdAt )">
+            <mat-icon>edit</mat-icon>
+            <span>Edit Prize</span>
+          </button>
+          <button mat-menu-item (click)="deleteItem(i, row._id, row.title, row.prize_image, row.prize_value, row.region)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete Prize</span>
+          </button>
+          <button mat-menu-item >
+            <mat-icon>assignment</mat-icon>
+            <span>List Day Consumption</span>
+          </button>
+
+        </mat-menu>
+
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No results
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="dataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>

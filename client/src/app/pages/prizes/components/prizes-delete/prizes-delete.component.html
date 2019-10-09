@@ -1,0 +1,46 @@
+
+<simple-notifications [options]="options"></simple-notifications>
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Inputs Validation start -->
+    <app-card [title]="'Delete Prize'" [headerContent]="'Are you sure?'" [cardOptionBlock]="true">
+
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <p>Id: {{data._id}}</p>
+          <p><img *ngIf="data.prize_image" src="{{site_url+data.prize_image}}" draggable="false" ></p>
+          <p>Prize Value: {{data.prize_value}}</p>
+          <p>Region: {{data.region}}</p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12">
+          <button class="btn btn-danger m-b-0" (click)="confirmDelete()">Delete</button>
+          <button class="btn btn-primary m-b-0" (click)="onNoClick()" tabindex="-1">Cancel</button>
+        </div>
+      </div>
+    </app-card>
+
+  </div>
+</div>
+
+
+<!--<div class="container">-->
+  <!--<h3 mat-dialog-title>Are you sure?</h3>-->
+  <!--<div mat-dialog-content>-->
+    <!--Id: {{data._id}}-->
+    <!--<p></p>-->
+    <!--<img *ngIf="data.prize_image" src="{{site_url+data.prize_image}}" draggable="false" >-->
+    <!--<p></p>-->
+    <!--Prize Value: {{data.prize_value}}-->
+    <!--<p></p>-->
+    <!--Region: {{data.region}}-->
+    <!--<p></p>-->
+  <!--</div>-->
+
+  <!--<div mat-dialog-actions>-->
+    <!--<button mat-raised-button color="warn" [mat-dialog-close]="1" (click)="confirmDelete()">Delete</button>-->
+    <!--<button mat-raised-button color="primary" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+  <!--</div>-->
+<!--</div>-->

@@ -1,0 +1,75 @@
+
+<mat-toolbar color="default">
+
+  <mat-toolbar-row>
+    <mat-form-field  class="form" floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Filter Coupon QR">
+    </mat-form-field>
+    <span class="example-spacer"></span>
+    <button mat-mini-fab  aria-label="Refresh" color="accent" (click)="refresh()" class="text-left">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<div class="container mat-elevation-z8">
+
+
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="qr_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.qr_id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>QR Code</mat-header-cell>
+      <mat-cell *matCellDef="let row"> <ngx-qrcode id="img_{{row.qr_id}}" qrc-element-type="img" qrc-value="{{row.qr_id}}"></ngx-qrcode></mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="qrStatus">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>qrStatus</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.qrStatus}}</mat-cell>
+    </ng-container>
+
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+
+        <button mat-icon-button color="accent" (click)="deleteItem(i, row.qr_id)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+
+        <button mat-icon-button color="primary" (click)="downloadQR(i, row.qr_id)">
+          <mat-icon aria-label="Download">get_app</mat-icon>
+        </button>
+
+
+
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No results
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="dataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>

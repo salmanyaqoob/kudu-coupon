@@ -1,0 +1,123 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Inputs Validation start -->
+    <app-card [title]="'Update Admin'" [headerContent]="'Enter Admin info'" [cardOptionBlock]="true">
+      <form [formGroup]="myForm" (ngSubmit)="submit">
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Admin id</label>
+          <div class="col-sm-10">
+            {{data._id}}
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="name" placeholder="Name" formControlName="name" required>
+            <div class="messages text-danger" *ngIf="!myForm.controls.name.valid  && (myForm.controls.name.dirty || isSubmitting)">Name can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email" required>
+            <div class="messages text-danger" *ngIf="myForm.controls.email.errors?.required && (myForm.controls.email.dirty || isSubmitting)">Email can't be blank</div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.email.valid  && (myForm.controls.email.dirty || isSubmitting)">Email is not Valid</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Role</label>
+          <div class="col-sm-10">
+            <select name="role" class="form-control" placeholder="Select Role" formControlName="role" required>
+              <option *ngFor="let roles of roles_array"
+                      [value]="roles.index"
+                      [attr.selected]="data.role==roles.value ? true : null" >{{roles.value}}</option>
+            </select>
+            <div class="messages text-danger error" *ngIf="!myForm.controls.role.valid  && (myForm.controls.role.dirty || isSubmitting)">Role can't be blank</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="col-sm-2 col-form-label">Is Active?</label>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="is_active" value="ACTIVE" formControlName="is_active"> Active
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="is_active" value="IN-ACTIVE" formControlName="is_active"> In-Active
+              </label>
+            </div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.is_active.valid  && (myForm.controls.is_active.dirty || isSubmitting)">Is Active can't be blank</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-2"></label>
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary m-b-0" [disabled]="!myForm.valid" (click)="stopEdit()">Update</button>
+            <button class="btn btn-danger m-b-0" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+        <input type="hidden" [value]="data._id" name="_id" required />
+      </form>
+    </app-card>
+
+  </div>
+</div>
+
+
+
+
+<!--<div class="container">-->
+  <!--<h3 mat-dialog-title>Admin id: {{data._id}}</h3>-->
+
+  <!--<form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Name" [(ngModel)]="data.name" name="name" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email" type="email" disabled required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Select Role" [(ngModel)]="data.role" name="role" required [(value)]="data.role">-->
+          <!--<mat-option value="SUPER_ADMIN">Super Admin</mat-option>-->
+          <!--<mat-option value="ADMIN">Admin</mat-option>-->
+          <!--<mat-option value="MANAGER">Manager</mat-option>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-radio-group placeholder="Is Active?" [(ngModel)]="data.is_active" name="is_active" required [(value)]="data.is_active">-->
+        <!--<mat-radio-button value="ACTIVE">Active</mat-radio-button>-->
+        <!--<mat-radio-button value="IN-ACTIVE">In-Active</mat-radio-button>-->
+      <!--</mat-radio-group>-->
+    <!--</div>-->
+
+    <!--<input type="hidden" [(ngModel)]="data._id" name="_id" required />-->
+    <!--<div mat-dialog-actions>-->
+      <!--<button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>-->
+      <!--<button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+    <!--</div>-->
+    <!--<p></p>-->
+    <!--<p></p>-->
+  <!--</form>-->
+<!--</div>-->

@@ -1,0 +1,167 @@
+<!--<mat-grid-list cols="4" rowHeight="100px">-->
+<!--<mat-grid-tile [colspan]="1">-->
+
+<!--</mat-grid-tile>-->
+
+<!--<mat-grid-tile [colspan]="3">-->
+
+<!--</mat-grid-tile>-->
+
+<!--</mat-grid-list>-->
+<simple-notifications [options]="options"></simple-notifications>
+
+<mat-toolbar color="default">
+
+  <mat-toolbar-row>
+    <mat-form-field  class="form" floatPlaceholder="never" color="accent">
+      <input matInput #filter placeholder="Filter Admin">
+    </mat-form-field>
+    <span class="example-spacer"></span>
+    <button mat-mini-fab  aria-label="Refresh" color="accent" (click)="refresh()" class="text-left">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+
+<div class="container mat-elevation-z8">
+
+
+  <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row._id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.email}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.role}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="is_active">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Is active</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.is_active}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Created At</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.createdAt | date}}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="startEdit(i, row._id, row.name, row.email, row.role, row.is_active, row.createdAt)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+  <div class="no-results" [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+    No results
+  </div>
+
+  <mat-paginator #paginator
+                 [length]="dataSource.filteredData.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="example-header">-->
+  <!--<mat-form-field>-->
+    <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">-->
+  <!--</mat-form-field>-->
+<!--</div>-->
+
+<!--<div class="example-container mat-elevation-z8">-->
+
+  <!--<mat-table [dataSource]="dataSource" matSort>-->
+
+    <!--&lt;!&ndash; ID Column &ndash;&gt;-->
+    <!--<ng-container matColumnDef="id">-->
+      <!--<mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>-->
+    <!--</ng-container>-->
+
+    <!--&lt;!&ndash; Progress Column &ndash;&gt;-->
+    <!--<ng-container matColumnDef="progress">-->
+      <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.progress}}% </mat-cell>-->
+    <!--</ng-container>-->
+
+    <!--&lt;!&ndash; Name Column &ndash;&gt;-->
+    <!--<ng-container matColumnDef="name">-->
+      <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>-->
+    <!--</ng-container>-->
+
+    <!--&lt;!&ndash; Color Column &ndash;&gt;-->
+    <!--<ng-container matColumnDef="color">-->
+      <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color}} </mat-cell>-->
+    <!--</ng-container>-->
+
+    <!--<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+    <!--<mat-row *matRowDef="let row; columns: displayedColumns;">-->
+    <!--</mat-row>-->
+  <!--</mat-table>-->
+
+  <!--<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>-->
+<!--</div>-->

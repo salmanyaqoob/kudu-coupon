@@ -1,0 +1,61 @@
+<section class="login p-fixed d-flex text-center bg-primary common-img-bg">
+  <!-- Container-fluid starts -->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <!-- Authentication card start -->
+        <div class="login-card card-block auth-body mr-auto ml-auto">
+
+          <form class="md-float-material" [formGroup]="authForm" (ngSubmit)="submitForm()">
+            <div class="text-center">
+              <img src="assets/images/logo.png" alt="Gradient Able">
+            </div>
+            <div class="auth-box">
+              <div class="row m-b-20">
+                <div class="col-md-12">
+                  <h3 class="text-left txt-primary">Sign In</h3>
+                </div>
+              </div>
+              <hr/>
+              
+              <list-errors [errors]="errors"></list-errors>
+
+              <fieldset [disabled]="isSubmitting">
+
+                <fieldset class="form-group" style="position: relative;">
+                  <input
+                    formControlName="email"
+                    value="sy@in-hq.com"
+                    placeholder="Email"
+                    class="form-control form-control-lg"
+                    type="text" />
+                  <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                  <div class="alert alert-danger" *ngIf="!authForm.controls.email.valid  && (authForm.controls.email.dirty || isSubmitting)">Email not valid</div>
+                </fieldset>
+                <fieldset class="form-group" style="position: relative;">
+                  <input
+                    formControlName="password"
+                    value="Za123456789"
+                    placeholder="Password"
+                    class="form-control form-control-lg"
+                    type="password" />
+                  <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </fieldset>
+                <button class="btn btn-primary btn-block btn-flat" [disabled]="!authForm.valid" type="submit">
+                  Sign in
+                </button>
+              </fieldset>
+
+            </div>
+          </form>
+          <!-- end of form -->
+        </div>
+        <!-- Authentication card end -->
+      </div>
+      <!-- end of col-sm-12 -->
+    </div>
+    <!-- end of row -->
+  </div>
+  <!-- end of container-fluid -->
+</section>
+

@@ -1,0 +1,199 @@
+<simple-notifications [options]="options"></simple-notifications>
+
+<div class="row">
+  <div class="col-sm-12">
+    <!-- Basic Inputs Validation start -->
+    <app-card [title]="'Update Coupon'" [headerContent]="'Enter Coupon info'" [cardOptionBlock]="true">
+      <form [formGroup]="myForm" (ngSubmit)="submit">
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Title</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="title" placeholder="Title" formControlName="title" required>
+            <div class="messages text-danger" *ngIf="!myForm.controls.title.valid  && (myForm.controls.title.dirty || isSubmitting)">Title can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Start Date</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="start_date" formControlName="start_date" required ngbDatepicker #start_date="ngbDatepicker">
+              <div class="input-group-addon bg-default" (click)="start_date.toggle()" >
+                <span class="icon-calendar"></span>
+              </div>
+            </div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.start_date.valid  && (myForm.controls.start_date.dirty || isSubmitting)">Start Date can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">End Date</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="end_date" formControlName="end_date" required ngbDatepicker #end_date="ngbDatepicker">
+              <div class="input-group-addon bg-default" (click)="end_date.toggle()" >
+                <span class="icon-calendar"></span>
+              </div>
+            </div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.end_date.valid  && (myForm.controls.end_date.dirty || isSubmitting)">End Date can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Select Coupon Type</label>
+          <div class="col-sm-10">
+            <select name="role" class="form-control" placeholder="Select Coupon Type" formControlName="coupon_type" required>
+              <option value="in-store">In Store</option>
+              <option value="social">Social</option>
+              <option value="wifi">WIFI</option>
+            </select>
+            <div class="messages text-danger error" *ngIf="!myForm.controls.coupon_type.valid  && (myForm.controls.coupon_type.dirty || isSubmitting)">Coupon Type can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Total Coupon Limit</label>
+          <div class="col-sm-10">
+            <input type="number" class="form-control" name="total_coupon_limit" placeholder="Total Coupon Limit" formControlName="total_coupon_limit" required>
+            <div class="messages text-danger" *ngIf="!myForm.controls.total_coupon_limit.valid  && (myForm.controls.total_coupon_limit.dirty || isSubmitting)">Total Coupon Limit can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">Select Region</label>
+          <div class="col-sm-10">
+            <select name="role" class="form-control" placeholder="Select Region" formControlName="region" required>
+              <option value="central">central</option>
+              <option value="northern">northern</option>
+              <option value="eastern">eastern</option>
+              <option value="southern">southern</option>
+            </select>
+            <div class="messages text-danger error" *ngIf="!myForm.controls.region.valid  && (myForm.controls.region.dirty || isSubmitting)">Region can't be blank</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <label class="col-sm-2 col-form-label">Coupon Status?</label>
+          <div class="col-sm-10">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="coupon_status" value="active" formControlName="coupon_status"> Active
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="coupon_status" value="in-active" formControlName="coupon_status"> In-Active
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="coupon_status" value="completed" formControlName="coupon_status"> Completed
+              </label>
+            </div>
+            <div class="messages text-danger" *ngIf="!myForm.controls.coupon_status.valid  && (myForm.controls.coupon_status.dirty || isSubmitting)">Coupon Status can't be blank</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-2"></label>
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary m-b-0" [disabled]="!myForm.valid" (click)="stopEdit()">Update</button>
+            <button class="btn btn-danger m-b-0" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+
+      </form>
+    </app-card>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<!--<div class="container">-->
+  <!--<h3 mat-dialog-title>Coupon id: {{data._id}}</h3>-->
+
+  <!--<form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Title" [(ngModel)]="data.title" name="title" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Start Date" [(ngModel)]="data.start_date" name="start_date" [matDatepicker]="picker_start_date" required />-->
+        <!--<mat-datepicker-toggle matSuffix [for]="picker_start_date"></mat-datepicker-toggle>-->
+        <!--<mat-datepicker #picker_start_date></mat-datepicker>-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="End Date" [(ngModel)]="data.end_date" name="end_date" [matDatepicker]="picker_end_date" required />-->
+        <!--<mat-datepicker-toggle matSuffix [for]="picker_end_date"></mat-datepicker-toggle>-->
+        <!--<mat-datepicker #picker_end_date></mat-datepicker>-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Select Coupon Type" [(ngModel)]="data.coupon_type" name="coupon_type" required>-->
+          <!--<mat-option value="in-store">In Store</mat-option>-->
+          <!--<mat-option value="social">Social</mat-option>-->
+          <!--<mat-option value="wifi">WIFI</mat-option>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Total Coupon Limit" [(ngModel)]="data.total_coupon_limit" name="total_coupon_limit" type="number" required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field color="accent">-->
+        <!--<input matInput class="form-control" placeholder="Total Coupon Consumed" [(ngModel)]="data.total_coupon_consumed" name="total_coupon_consumed" type="number" value="0" disabled required />-->
+        <!--<mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-form-field>-->
+        <!--<mat-select placeholder="Select Region" [(value)]="data.region" [(ngModel)]="data.region" name="region" required>-->
+          <!--<mat-option value="central">central</mat-option>-->
+          <!--<mat-option value="northern">northern</mat-option>-->
+          <!--<mat-option value="eastern">eastern</mat-option>-->
+          <!--<mat-option value="southern">southern</mat-option>-->
+        <!--</mat-select>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div class="form">-->
+      <!--<mat-radio-group placeholder="Coupon Status?" [(value)]="data.coupon_status"  [(ngModel)]="data.coupon_status" name="coupon_status" required >-->
+        <!--<mat-radio-button value="active" selected>active</mat-radio-button>-->
+        <!--<mat-radio-button value="in-active">in-active</mat-radio-button>-->
+        <!--<mat-radio-button value="completed">completed</mat-radio-button>-->
+      <!--</mat-radio-group>-->
+    <!--</div>-->
+
+    <!--<input type="hidden" [(ngModel)]="data._id" name="_id" required />-->
+    <!--<div mat-dialog-actions>-->
+      <!--<button mat-raised-button color="primary" [type]="submit" [disabled]="!formControl.valid" (click)="stopEdit()">Save</button>-->
+      <!--<button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>-->
+    <!--</div>-->
+    <!--<p></p>-->
+    <!--<p></p>-->
+  <!--</form>-->
+<!--</div>-->
