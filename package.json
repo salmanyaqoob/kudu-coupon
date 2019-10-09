@@ -6,9 +6,9 @@
   "main": "index.js",
   "private": false,
   "engines": {
-    "node": ">=8.10.0",
-    "npm": ">=5.6.0",
-    "yarn": ">=1.5.1"
+    "node": "10.16.2",
+    "npm": "6.9.0",
+    "yarn": "1.9.4"
   },
   "scripts": {
     "start": "node index.js",
@@ -56,6 +56,7 @@
     "expect": "^22.0.3",
     "express": "4.16.3",
     "express-jwt": "5.3.1",
+    "express-sslify": "false1.2.0",
     "express-validation": "1.0.2",
     "express-winston": "2.5.0",
     "helmet": "3.12.0",
