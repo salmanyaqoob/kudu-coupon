@@ -63,7 +63,7 @@
     "http-status": "1.0.1",
     "joi": "10.6.0",
     "jsonwebtoken": "7.1.9",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "method-override": "^2.3.10",
     "mongodb": "3.0.1",
     "mongoose": "4.7.4",
